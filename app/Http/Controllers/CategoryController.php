@@ -22,12 +22,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-        if($request->hasFile('cat_image'))
-        {
-            $fileName = $request->file('cat_image');
-            $fileGenerate = date('ymdhis').'.'.$fileName->getClientOriginalExtension();
-            $fileName->storeAs('category',$fileGenerate);
-        }
+        // if($request->hasFile('cat_image'))
+        // {
+        //     $fileName = $request->file('cat_image');
+        //     $fileGenerate = date('ymdhis').'.'.$fileName->getClientOriginalExtension();
+        //     $fileName->storeAs('category',$fileGenerate);
+        // }
 
 
 
@@ -35,8 +35,8 @@ class CategoryController extends Controller
 
         Category::create([
             'name'=>$request->cat_name,
-            'price'=>$request->cat_price,
-            'image'=>$fileGenerate
+            'details'=>$request->cat_details,
+        
         ]);
         return redirect()->route('category.list');
     }

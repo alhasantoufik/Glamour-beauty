@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\frontend\Customer;
+use App\Models\Customer;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -68,4 +69,62 @@ class CustomerController extends Controller
        
 
     }
+
+    public function login(Request $request)
+    {
+            //step 1 validation
+            $validation=Validator::make($request->all(),[
+                'email'=>'required|email',
+                'password'=>'required|min:6',
+
+            ]);
+
+            if($validation->fails())
+            {
+                notify()->error($validation->getMessageBag());
+
+                return redirect()->back();
+
+            }
+
+
+            //condition for login
+            $credentials=$request->except('_token');
+            $check=auth('customerGuard')->attempt($credentials);
+
+
+            if($check){
+                // notify()->success('Log in Succesfull');
+                // return redirect()->route('');
+                dd('login korsi');
+            }else{
+                notify()->error('log in Failed');
+                return redirect()->route('home');
+            }
+
+
+
+    }
+
+    
+
+    public function customerLogout()
+    {
+
+        auth('customerGuard')->logout();
+        session()->forget('home');
+
+        notify()->success('Logout Successfull');
+        return redirect()->route('home');
+
+
+    }
+
+    public function customerProfile()
+    {
+        return view('frontend.home');
+
+    }
+
+
 }

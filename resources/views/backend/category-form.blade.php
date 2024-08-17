@@ -12,14 +12,14 @@
     
   </div>
   <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Price</label>
-    <input name="cat_price" type="text" class="form-control" id="price" placeholder="Enter Price">
+    <label for="exampleInputPassword1" class="form-label">Details</label>
+    <input name="cat_details" type="text" class="form-control" id="price" placeholder="Enter Details">
   </div>
 
 
   <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Price</label>
-    <input name="cat_image" type="file" class="form-control" id="price" placeholder="image">
+    <label for="exampleInputPassword1" class="form-label">Status</label>
+    <input name="cat_status" type="text" class="form-control" id="price" placeholder="Status">
   </div>
   <!-- <div class="mb-3 form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">

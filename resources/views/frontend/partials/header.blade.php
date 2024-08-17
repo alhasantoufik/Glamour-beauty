@@ -118,8 +118,17 @@
 
 
                       <li><a href="contact.html" class="item-anchor" data-effect="Contact">Contact</a></li>
-                      <li><a href="contact.html" class="item-anchor" data-effect="Contact">Login</a></li>
-                      <li><a href="#" data-toggle="modal" data-target="#exampleModal" class="item-anchor" data-effect="Contact">Registration</a>
+                      <!-- <li><a href="" class="item-anchor" data-effect="Contact">Login</a></li> -->
+                     
+                   @guest('customerGuard')
+                   <li><a href="#" data-toggle="modal" data-target="#loginModal" class="item-anchor" data-effect="Contact">Login</a>
+                   <li><a href="#" data-toggle="modal" data-target="#exampleModal" class="item-anchor" data-effect="Contact">Registration</a>
+                   @endguest
+                  
+
+                      
+
+                    
 
 
                     </li>
@@ -136,7 +145,7 @@
     </header>
     <!-- Button trigger modal -->
 
-<!-- Modal -->
+<!--Registration Modal -->
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -183,6 +192,46 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Registration</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- login modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Log In</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{route('customer.login')}}" method="post" enctype="multipart/form-data"> 
+
+        @csrf
+      
+    <div class="modal-body">   
+      
+
+      <div class="form-group">
+      <label for="exampleInputEmail1">Enter Your Email</label>
+      <input name="customer_email" required type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email">
+      </div>
+
+
+      <div class="form-group">
+      <label for="exampleInputEmail1">Enter Your Password</label>
+      <input name="customer_password" required type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Password">
+      </div>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Login</button>
       </div>
       </form>
     </div>

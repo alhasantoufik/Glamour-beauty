@@ -25,7 +25,10 @@ Route::get('/home',[FrontendHomeController::class,'home'])->name('home');
 
 
 Route::post('/registration',[FrontendCustomerController::class,'registration'])->name('customer.registration');
+Route::post('/login',[FrontendCustomerController::class,'login'])->name('customer.login');
 
+Route::get('/view-profile',[FrontendCustomerController::class,'customerProfile'])->name('customer.profile');
+// Route::get('/logout',[FrontendCustomerController::class,'customerLogout'])->name('customer.logout');
 
 
 
