@@ -22,12 +22,13 @@ class LoginController extends Controller
         //dd($check);
         if($check)
         {
-            //notify()->success("login successful");
-            return redirect()->route('dashboard');
+            notify()->success("login successful");
+            return redirect()->route('dashboard.Body');
 
         }else{
             //2 number user
             return redirect()->back();
+            notify()->error('log-in denied');
         }
 
 

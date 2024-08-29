@@ -20,9 +20,10 @@
 
   <div class="form-group">
     <label for="exampleInputEmail1">Enter Product Price</label>
-    <input name="product_price" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Price">
+    <input name="product_price" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Price">
     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
   </div>
+
 
   <div class="form-group">
     <label for="exampleInputEmail1">Enter Product Image</label>
@@ -32,14 +33,18 @@
 
   <div class="form-group">
     <label for="exampleInputEmail1">Enter Product Quantity</label>
-    <input name="product_quant" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Quantity">
+    <input name="product_quant" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Quantity">
     <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
   </div>
 
   <div class="form-group">
-    <label for="exampleInputEmail1">Enter Product Category</label>
-    <input name="product_cat" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Product Category">
-    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+        <select class="form-select" aria-label="Default select example" name="cat_name">
+              <option selected>Select Category</option>
+              @foreach ($allcategory as $category)
+              <option value="{{$category->id}}">{{$category->name}}</option>
+              @endforeach
+              
+        </select>
   </div>
   <!-- <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1">

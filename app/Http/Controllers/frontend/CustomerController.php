@@ -4,6 +4,9 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -72,15 +75,18 @@ class CustomerController extends Controller
 
     public function login(Request $request)
     {
+       
             //step 1 validation
             $validation=Validator::make($request->all(),[
-                'email'=>'required|email',
-                'password'=>'required|min:6',
+                'customer_email'=>'required|email',
+                'customer_password'=>'required|min:6',
 
             ]);
 
             if($validation->fails())
             {
+
+                // dd($validation->getMessageBag());
                 notify()->error($validation->getMessageBag());
 
                 return redirect()->back();
@@ -89,14 +95,18 @@ class CustomerController extends Controller
 
 
             //condition for login
-            $credentials=$request->except('_token');
+            $credentials['email']=$request->customer_email;
+            $credentials['password']=$request->customer_password;
+           
+
             $check=auth('customerGuard')->attempt($credentials);
+            
 
 
             if($check){
-                // notify()->success('Log in Succesfull');
-                // return redirect()->route('');
-                dd('login korsi');
+                notify()->success('Log in Succesfull');
+                return redirect()->route('home');
+                //dd('login korsi');
             }else{
                 notify()->error('log in Failed');
                 return redirect()->route('home');
@@ -112,7 +122,7 @@ class CustomerController extends Controller
     {
 
         auth('customerGuard')->logout();
-        session()->forget('home');
+        
 
         notify()->success('Logout Successfull');
         return redirect()->route('home');
@@ -126,5 +136,42 @@ class CustomerController extends Controller
 
     }
 
+    public function viewProfile()
+    {
 
+        $orders=Order::where('customer_id',auth('customerGuard')->user()->id)->get();
+        
+        return view('frontend.pages.profile',compact('orders'));
+    }
+
+    public function cancelOrder($id)
+    {
+       
+        $order=Order::find($id);
+        
+        $order->update([
+            'status'=>'cancel'
+        ]);
+
+        $items=OrderDetail::where('order_id',$id)->get();
+       foreach($items as $item)
+       {
+        $product=Product::find($item->product_id);
+
+        $product->increment('quantity',$item->product_quantity);
+       }
+
+
+
+        notify()->success('Order cancelled.');
+        return redirect()->back();
+
+    }
+
+    public function deleteOrder($id){
+        $item = Order::find($id)->delete();
+        notify()->success('Order Deleted');
+
+        return redirect()->back();
+    }
 }

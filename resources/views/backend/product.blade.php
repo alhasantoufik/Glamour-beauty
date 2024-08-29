@@ -14,18 +14,17 @@
       <th scope="col">Image</th>
       <th scope="col">Quantity</th>
       <th scope="col">Category</th>
-      <!-- <th scope="col">Quantity</th> -->
       <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
-    @foreach ($allItem as $item)
+    @foreach ($allItem as $key=>$item)
 
     
      
   
   <tr>
-      <th scope="row">{{$item->id}}</th>
+      <th scope="row">{{$key+1}}</th>
       <td>{{$item->name}}</td>
       <td>{{$item->description}}</td>
       <td>{{$item->price}}</td>
@@ -35,7 +34,7 @@
       
       <td>
         <!-- <a class="btn btn-primary" href="">Add</a> -->
-        <a class="btn btn-warning" href="">Edit</a>
+        <a class="btn btn-warning" href="{{route('product.edit',$item->id)}}">Edit</a>
         <a class="btn btn-danger"  href="{{route('product.delete',$item->id)}}">Delete</a>
         
       </td>

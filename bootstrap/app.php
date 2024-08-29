@@ -11,7 +11,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'customer_auth' => \App\Http\Middleware\customer::class,
+        ]);
+        $middleware->validateCsrfTokens(except: [
+            '/success',
+            '/cancel',
+            '/fail',
+            '/ipn',
+            '/pay-via-ajax',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
