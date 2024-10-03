@@ -84,10 +84,10 @@ class PaymentController extends Controller
         $sslc = new SslCommerzNotification();
 
         #Check order status in order tabel against the transaction id or order id.
-        $order_details = Order::find($order_id);
+        $order = Order::find($order_id);
            
 
-        if ($order_details->status == 'Pending') {
+        if ($order->status == 'pending') {
             $validation = $sslc->orderValidate($request->all(), $order_id, $amount, $currency);
 
             if ($validation) {
@@ -103,9 +103,17 @@ class PaymentController extends Controller
                 ]);
             }
   
-            notify()->success('updated');
+       
 
+            notify()->success('Order place successfully.');
+
+               
+            return redirect()->route('home');
+                
     }
+    notify()->error('something went wrong with status');
+    return redirect()->route('home');
+}
 
     public function fail(Request $request)
     {

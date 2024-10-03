@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,6 +19,8 @@ class HomeController extends Controller
     {
         $customerCount=Customer::count();
         $totalSale=Order::sum('total_amount');
-        return view('backend.dashboard',compact('customerCount','totalSale'));
+        $totalProduct=Product::count();
+        $totalOrder=Order::count();
+        return view('backend.dashboard',compact('customerCount','totalSale', 'totalProduct', 'totalOrder'));
     }
 }

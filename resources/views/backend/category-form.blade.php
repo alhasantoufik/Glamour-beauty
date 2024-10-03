@@ -12,6 +12,12 @@
     
   </div>
   <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Category Parent</label>
+    <input name="category_parent" type="text" class="form-control" id="price" placeholder="Enter Details">
+  </div>
+
+
+  <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Details</label>
     <input name="cat_details" type="text" class="form-control" id="price" placeholder="Enter Details">
   </div>

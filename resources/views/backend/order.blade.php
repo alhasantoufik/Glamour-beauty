@@ -15,7 +15,7 @@
       <th scope="col">Payment Method</th>
       <th scope="col">Order Date</th>
       <th scope="col">Receiver Address</th>
-      <th scope="col">Action</th>
+      <!-- <th scope="col">Action</th> -->
       
     </tr>
   </thead>
@@ -25,12 +25,12 @@
     <td>{{$item->customer->name}}</td>
     <td>{{$item->receiver_name}}</td>
     <td>{{$item->receiver_mobile}}</td>
-    <td>{{$item->status}}</td>
+    <td>{{$item->payment_status}}</td>
     <td>{{$item->total_amount}} .BDT</td>
     <td>{{$item->payment_method}}</td>
     <td>{{$item->created_at}}</td>
     <td>{{$item->receiver_address}}</td>
-    <td>Action</td>
+    <!-- <td>Action</td> -->
     <td></td>
   </tbody>
   @endforeach

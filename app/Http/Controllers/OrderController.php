@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Frontend\PaymentController;
+use App\Mail\OrderEmail;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Throwable;
 
@@ -84,9 +86,6 @@ class OrderController extends Controller
     {
         //ternary operator (condition) ? statement 1 : statement2
 
-        //null coalescing ??
-        //$a=5; $b=6;
-        // $x= $a ?? $b
 
         $myCart=session()->get('basket') ?? [];
 
@@ -165,7 +164,7 @@ class OrderController extends Controller
             'receiver_name'=>$request->receiver_name,
             'receiver_email'=>$request->email,
             'receiver_address'=>$request->address,
-            'receiver_mobile'=>'01616666666',
+            'receiver_mobile'=>'01712536945',
             'payment_method'=>$request->paymentMethod,
             'customer_id'=>auth('customerGuard')->user()->id,
             'total_amount'=>array_sum(array_column($cart,'subtotal'))
@@ -193,7 +192,11 @@ class OrderController extends Controller
         }
 
         DB::commit();
-               
+              
+        //send order confirmation email
+         session()->forget('basket');
+
+         Mail::to($request->email)->send(new OrderEmail($order));
         
 
         notify()->success('Order place successfully.');
@@ -228,6 +231,47 @@ class OrderController extends Controller
 
        return view('frontend.pages.invoice',compact('order'));
         
+    }
+
+    public function report()
+    {
+       
+        if(request()->has('form_date') && request()->has('to_date'))
+        {
+            $orders=Order::with('customer')
+            ->whereBetween('created_at',[request()->from_date,request()->to_date])
+            ->get();
+
+            return view('backend.report',compact('orders'));
+        }
+        
+        $orders=Order::with('customer')->get();
+        
+        return view('backend.report',compact('orders'));
+
+    }
+
+    public function updateCart(Request $request,$id)
+    {
+        
+
+        $cart=session()->get('basket');
+        $product=Product::find($id);
+        
+        if($product->quantity >= $request->quantity)
+        {
+            $cart[$id]['quantity']=$request->quantity;
+            $cart[$id]['subtotal']=$request->quantity * $cart[$id]['price'];
+
+            session()->put('basket',$cart);
+            notify()->success('Cart updated.');
+            return redirect()->back();
+        }else
+        {
+            notify()->error('stock not available');
+            return redirect()->back();
+        }
+       
     }
 
 }

@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function product()
     {
-        $allItem = Product::paginate(5);
+        $allItem = Product::with('categoryRel')->paginate(5);
         return view('backend.product',compact('allItem'));
     }
 
@@ -51,10 +51,6 @@ class ProductController extends Controller
         
 
 
-
-
-
-
         Product::create([
             'name'=>$request->product_name,
             'description'=>$request->product_des,
@@ -90,12 +86,9 @@ class ProductController extends Controller
         return view('backend.pages.product-edit',compact('allCategory','product'));
 
 
+        notify()->success('Product Edited successfully.');
 
-        // $product= Product::find($editID)->edit();
-
-        // notify()->success('Product Edited successfully.');
-
-        // return redirect()->back();
+        return redirect()->back();
 
     }
 
@@ -118,6 +111,12 @@ class ProductController extends Controller
         return redirect()->route('product.list');
 
 
+    }
+
+    public function setAlertStock(Request $request)
+    {
+        session()->put($request->alert_quantity);
+        return redirect()->back();
     }
 
     

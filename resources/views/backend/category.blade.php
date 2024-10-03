@@ -16,9 +16,10 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Category Name</th>
+      <th scope="col">Category Parent</th>
       <th scope="col">Details</th>
       <!-- <th scope="col">Quantity</th> -->
-      <th scope="col">Status</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -30,11 +31,11 @@
   <tr>
       <th scope="row">{{$item->id}}</th>
       <td>{{$item->name}}</td>
+      <td>{{$item->parent_id}}</td>
       <td>{{$item->details}}</td>
       <td>
-        <a class="btn btn-primary" href="">Add</a>
-        <a class="btn btn-danger" href="">Delete</a>
-        <a class="btn btn-warning" href="">Edit</a>
+        <a class="btn btn-danger" href="{{route('category.delete',$item->id)}}">Delete</a>
+        
         
       </td>
     </tr>

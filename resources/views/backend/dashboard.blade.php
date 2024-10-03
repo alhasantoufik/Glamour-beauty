@@ -120,6 +120,7 @@
     }
 
 </style>
+<style type="text/css"> .notify{ z-index: 1000000; margin-top: 5%; } </style>
 
 <h1>Dashboard</h1>
 
@@ -153,9 +154,9 @@
       <div class="circle-tile ">
         <a href="#"><div class="circle-tile-heading yellow "><i class="fa fa-envelope fa-fw fa-3x"></i></div></a>
         <div class="circle-tile-content yellow">
-          <div class="circle-tile-description text-faded"> Emails </div>
-          <div class="circle-tile-number text-faded ">10</div>
-          <a class="circle-tile-footer" href="#">More Info<i class="fa fa-chevron-circle-right"></i></a>
+          <div class="circle-tile-description text-faded"> Products </div>
+          <div class="circle-tile-number text-faded ">{{$totalProduct}}</div>
+          <a class="circle-tile-footer" href="{{route('product.list')}}">More Info<i class="fa fa-chevron-circle-right"></i></a>
         </div>
       </div>
     </div> 
@@ -164,9 +165,9 @@
       <div class="circle-tile ">
         <a href="#"><div class="circle-tile-heading orange"><i class="fa fa-comments fa-fw fa-3x"></i></div></a>
         <div class="circle-tile-content orange">
-          <div class="circle-tile-description text-faded"> Messages </div>
-          <div class="circle-tile-number text-faded ">10</div>
-          <a class="circle-tile-footer" href="#">More Info<i class="fa fa-chevron-circle-right"></i></a>
+          <div class="circle-tile-description text-faded"> Orders </div>
+          <div class="circle-tile-number text-faded ">{{$totalOrder}}</div>
+          <a class="circle-tile-footer" href="{{route('order.list')}}">More Info<i class="fa fa-chevron-circle-right"></i></a>
         </div>
       </div>
     </div> 

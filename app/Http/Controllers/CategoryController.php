@@ -36,12 +36,21 @@ class CategoryController extends Controller
         Category::create([
             'name'=>$request->cat_name,
             'details'=>$request->cat_details,
+            'parent_id'=>$request->category_parent
         
         ]);
         return redirect()->route('category.list');
     }
 
+    public function delete($id)
+    {
+        $category=category::find($id);
+        $category->delete();
 
+        notify()->success('Category Deleted Successfully');
+
+        return redirect()->back();
+    }
 
 
 

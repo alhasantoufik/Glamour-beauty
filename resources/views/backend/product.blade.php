@@ -20,8 +20,6 @@
   <tbody>
     @foreach ($allItem as $key=>$item)
 
-    
-     
   
   <tr>
       <th scope="row">{{$key+1}}</th>
@@ -30,7 +28,7 @@
       <td>{{$item->price}}</td>
       <td><img src="{{url('/upload/category/'.$item->image)}}" alt="Product Image"style="width: 90px;"></td>
       <td>{{$item->quantity}}</td>
-      <td>{{$item->category}}</td>
+      <td>{{$item->categoryRel->name}}</td>
       
       <td>
         <!-- <a class="btn btn-primary" href="">Add</a> -->

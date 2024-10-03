@@ -16,6 +16,7 @@ class ProductController extends Controller
 
     public function showProduct($id)
     {
+
         $singleProduct=Product::find($id);
 
         $relatedProduct=Product::where('category',$singleProduct->category)
@@ -26,49 +27,33 @@ class ProductController extends Controller
 
         return view('frontend.pages.singleProduct', compact('singleProduct','relatedProduct'));
 
-      
+     
 
 
     }
 
-    public function showProductMen()
+    public function showCategoryProduct($id)
     {
-
-        $allProduct=Product::where('category','2')->get();
-
-
-
-
-        return view('frontend.pages.men',compact('allProduct'));
-
-
+        $allProduct=Product::where('category',$id)->get();
+        return view('frontend.product',compact('category','allProduct'));
     }
 
-    public function showProductWomen()
+    
+    public function search()
     {
+      // dd(request()->all());
+      // dd($request->all());
 
+      $products=Product::where('name','LIKE','%'.request()->search_key.'%')
+                          // ->OrWhere('price','LIKE','%'.request()->search_key.'%')
+                          ->get();
 
-        $allProduct=Product::where('category','1')->get();
+      //where('column name','condition','%value%')
 
-
-        return view('frontend.pages.women',compact('allProduct'));
-
+      return view('frontend.pages.search',compact('products'));
 
 
     }
-
-    public function showProductKid()
-    {
-
-
-        $allProduct=Product::where('category','3')->get();
-
-
-        return view('frontend.pages.kid',compact('allProduct'));
-
-    }
-
-
 
 
 

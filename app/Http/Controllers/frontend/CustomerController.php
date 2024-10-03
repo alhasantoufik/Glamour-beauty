@@ -23,7 +23,7 @@ class CustomerController extends Controller
         //     'email'=>'required|email',
         //     'password'=>'required|min:6|confirmed',
         //     'address'=>'required',
-        //     // 'image'=>'required',
+        //     'image'=>'required',
         //     'phone'=>'required|min:11|max:11'
         //     // 'status'=>'required'
 
@@ -61,7 +61,7 @@ class CustomerController extends Controller
         'email'=>$request->customer_email,
         'password'=>bcrypt($request->customer_password),
         'address'=>$request->customer_address,
-        'image'=>$request->filegenerate,
+        
         'phone'=>$request->customer_number
        ]);
 
@@ -138,11 +138,17 @@ class CustomerController extends Controller
 
     public function viewProfile()
     {
-
+        $allCustomer=Customer::all(); 
         $orders=Order::where('customer_id',auth('customerGuard')->user()->id)->get();
         
-        return view('frontend.pages.profile',compact('orders'));
+        return view('frontend.pages.profile',compact('orders','allCustomer'));
     }
+
+    // public function edit($editID)
+    // {
+    //         $customer=Customer::find($editID);
+    //         return view('frontend.pages.customerEdit',compact('customer'));
+    // }
 
     public function cancelOrder($id)
     {
@@ -174,4 +180,29 @@ class CustomerController extends Controller
 
         return redirect()->back();
     }
+
+    //EDit PRofile
+    public function profileEdit($profile_id)
+    {
+        // $customer=Customer::find($profile_id);
+        $allCustomer=Customer::find(auth('customerGuard')->user()->id);
+        return view('frontend.pages.customerEdit',compact('allCustomer'));
+    }
+
+    public function profileUpdate(Request $request, $update_id)
+    {
+            $customer=Customer::find($update_id);
+
+            $customer->update([
+                'name'=>$request->customer_name,
+                'email'=>$request->customer_email,
+                'address'=>$request->customer_address,
+                'phone'=>$request->customer_number
+            ]);
+
+            notify()->success('Profile Update Successfully');
+            return redirect()->route('view.profile');
+    }
+
+
 }
