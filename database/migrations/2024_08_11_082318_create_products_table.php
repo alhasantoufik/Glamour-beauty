@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->integer('quantity');
             $table->string('category');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

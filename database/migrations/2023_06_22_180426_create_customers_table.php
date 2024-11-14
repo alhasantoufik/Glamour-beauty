@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('name',length:100);
+            $table->string('name',length:100)->nullable();
+            $table->string('first_name',length:100)->nullable();
+            $table->string('last_name',length:100)->nullable();
+
             $table->string('email',length:100)->uniqid();
-            $table->string('password');
+            $table->string('password')->default('123456');
             $table->text('address')->nullable();
             $table->string('image')->nullable();
             $table->string('phone')->nullable();

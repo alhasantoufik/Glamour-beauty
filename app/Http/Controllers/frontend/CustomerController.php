@@ -57,7 +57,8 @@ class CustomerController extends Controller
 
        Customer::create([
         //bam pase column name=>dan pase value (form input)
-        'name'=>$request->customer_name,
+        'first_name'=>$request->customer_fname,
+        'last_name'=>$request->customer_lname,
         'email'=>$request->customer_email,
         'password'=>bcrypt($request->customer_password),
         'address'=>$request->customer_address,
@@ -182,9 +183,10 @@ class CustomerController extends Controller
     }
 
     //EDit PRofile
-    public function profileEdit($profile_id)
+    public function profileEdit()
     {
-        // $customer=Customer::find($profile_id);
+        
+
         $allCustomer=Customer::find(auth('customerGuard')->user()->id);
         return view('frontend.pages.customerEdit',compact('allCustomer'));
     }
@@ -193,11 +195,22 @@ class CustomerController extends Controller
     {
             $customer=Customer::find($update_id);
 
+            $fileGenerate=null;
+            if($request->hasFile('customer_image'))
+            {
+
+                $fileName=$request->file('customer_image');
+                $fileGenerate =  date('ymdish').'.'.$fileName->getClientOriginalExtension();
+                $fileName->storeAs('customer',$fileGenerate);
+
+            }
+
+
             $customer->update([
                 'name'=>$request->customer_name,
-                'email'=>$request->customer_email,
                 'address'=>$request->customer_address,
-                'phone'=>$request->customer_number
+                'phone'=>$request->customer_number,
+                'image'=>$fileName
             ]);
 
             notify()->success('Profile Update Successfully');

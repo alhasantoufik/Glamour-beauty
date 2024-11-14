@@ -64,41 +64,47 @@ color:#69707a;
 }
 </style>
 <style type="text/css"> .notify{ z-index: 1000000; margin-top: 5%; } </style>
-    <h1>Update Profile</h1>
+   <div class="container">
+
+         <h1>Update Profile</h1>
        
    
-                    <form action="{{route('profile.update', $allCustomer->id)}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                        <!-- Form Group (username)-->
-                        <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">Username</label>
-                            <input required name="customer_name" class="form-control" id="" type="text" placeholder="Enter your username" value="{{$allCustomer->name}}">
-                        </div>
-            
-                        <!-- Form Group (email address)-->
-                        <div class="mb-3">
-                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                            <input required name="customer_email" class="form-control" id="i" type="email" placeholder="Enter your email address" value="{{$allCustomer->email}}">
-                        </div>
+       <form action="{{route('profile.update', $allCustomer->id)}}" method="post" enctype="multipart/form-data">
+            @csrf
+           <!-- Form Group (username)-->
+            <div class="mb-3">
+               <label class="small mb-1" for="inputUsername">Username</label>
+               <input required name="customer_name" class="form-control" id="" type="text" placeholder="Enter your username" value="{{$allCustomer->name}}">
+           </div>
 
-                            <!-- Form Group (phone number)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Phone number</label>
-                                <input required name="customer_number" class="form-control" id="" type="tel" placeholder="Enter your phone number" value="{{$allCustomer->phone}}">
-                            </div>
-                            <!-- Form Group (address)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="">Address</label>
-                                <input required name="customer_address" class="form-control" id="" type="text" placeholder="Enter your Address" value="{{$allCustomer->address}}">
-                            </div>
-                        </div>
-                        <!-- Save changes button-->
-                        <button class="btn btn-primary" type="submit">Update</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+           <!-- Form Group (email address)-->
+           <div class="mb-3">
+               <label class="small mb-1" for="inputEmailAddress">Email address</label>
+               <input required name="customer_email" class="form-control" id="i" type="email" placeholder="Enter your email address" value="{{$allCustomer->email}}">
+           </div>
+
+           <div class="mb-3">
+               <label class="small mb-1" for="inputimage">Image</label>
+               <input name="customer_image" class="form-control" id="i" type="file" placeholder="Enter your image" value="">
+           </div>
+
+               <!-- Form Group (phone number)-->
+               <div class="col-md-6">
+                   <label class="small mb-1" for="inputPhone">Phone number</label>
+                   <input required name="customer_number" class="form-control" id="" type="tel" placeholder="Enter your phone number" value="{{$allCustomer->phone}}">
+               </div>
+               <!-- Form Group (address)-->
+               <div class="col-md-6">
+                   <label class="small mb-1" for="">Address</label>
+                   <input required name="customer_address" class="form-control" id="" type="text" placeholder="Enter your Address" value="{{$allCustomer->address}}">
+               </div>
+
+
+                <button class="btn btn-success" type="submit">Update</button>
+       </form>
+   </div>
+
+   
 </div>
 
 

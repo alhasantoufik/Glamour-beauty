@@ -53,7 +53,7 @@ Route::group(['middleware'=>'customer_auth'],function (){
     Route::get('/customer-logout',[FrontendCustomerController::class,'customerLogout'])->name('customer.logout');
 
     Route::get('/view-profile',[FrontendCustomerController::class,'viewProfile'])->name('view.profile');
-    Route::get('/profile/edit/{profile_id}',[FrontendCustomerController::class,'profileEdit'])->name('profile.edit');
+    Route::get('/profile/edit',[FrontendCustomerController::class,'profileEdit'])->name('profile.edit');
     Route::post('/profile/update/{update_id}',[FrontendCustomerController::class,'profileUpdate'])->name('profile.update');
 
 

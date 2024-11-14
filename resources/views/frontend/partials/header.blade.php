@@ -176,7 +176,7 @@
                         @auth('customerGuard')
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ auth('customerGuard')->user()->name }}
+                                    {{ auth('customerGuard')->user()->FullName}}
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="profileDropdown">
                                     <li><a class="dropdown-item" href="{{ route('view.profile') }}">Profile</a></li>
@@ -216,9 +216,17 @@
             <form action="{{ route('customer.registration') }}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="customerName" class="form-label">Enter Your Name</label>
                         <input name="customer_name" required type="text" class="form-control" id="customerName" placeholder="Enter Your Name">
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="customerName" class="form-label">Enter Your First Name</label>
+                        <input name="customer_fname" required type="text" class="form-control" id="customerName" placeholder="Enter Your Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="customerName" class="form-label">Enter Your Last Name</label>
+                        <input name="customer_lname" required type="text" class="form-control" id="customerName" placeholder="Enter Your Name">
                     </div>
                     <div class="mb-3">
                         <label for="customerEmail" class="form-label">Enter Your Email</label>

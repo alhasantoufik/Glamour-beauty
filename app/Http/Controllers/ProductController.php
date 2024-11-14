@@ -57,7 +57,9 @@ class ProductController extends Controller
             'price'=>$request->product_price,
             'image'=>$fileGenerate,
             'quantity'=>$request->product_quant,
-            'category'=>$request->cat_name
+            'category'=>$request->cat_name,
+            'slug'=>str()->slug($request->product_name)
+
             
         ]);
     
